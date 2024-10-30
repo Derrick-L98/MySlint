@@ -22,7 +22,6 @@ slint::include_modules!();
 //     Ok(())
 // }
 
-
 // slint::include_modules!();
 
 fn main() -> Result<(), slint::PlatformError> {
@@ -44,11 +43,12 @@ fn main() -> Result<(), slint::PlatformError> {
     let tiles_model = std::rc::Rc::new(slint::VecModel::from(tiles));
     main_window.set_memory_tiles(tiles_model.clone().into());
 
-
     let main_window_weak = main_window.as_weak();
     main_window.on_check_if_pair_solved(move || {
-        let mut flipped_tiles =
-            tiles_model.iter().enumerate().filter(|(_, tile)| tile.image_visible && !tile.solved);
+        let mut flipped_tiles = tiles_model
+            .iter()
+            .enumerate()
+            .filter(|(_, tile)| tile.image_visible && !tile.solved);
 
         if let (Some((t1_idx, mut t1)), Some((t2_idx, mut t2))) =
             (flipped_tiles.next(), flipped_tiles.next())
@@ -73,7 +73,6 @@ fn main() -> Result<(), slint::PlatformError> {
             }
         }
     });
-
 
     // main_window.run().unwrap();
     main_window.run()
